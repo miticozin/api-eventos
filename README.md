@@ -65,8 +65,8 @@ Evento (`POST /eventos`):
 
 ```json
 {
-  "titulo": "Semana de TI",
-  "descricao": "Palestras e oficinas",
+  "titulo": "Semana Academica",
+  "descricao": "Palestras e Projetos",
   "local": "Auditório central",
   "data": "2026-12-15T19:00:00Z",
   "vagas": 50,
