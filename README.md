@@ -77,5 +77,5 @@ Evento (`POST /eventos`):
 Participante (`POST /participantes`):
 
 ```json
-{ "nome": "Ana Silva", "email": "ana@email.com", "telefone": "53999999999" }
+{ "nome": "Vitor Gomes", "email": "emailgenerico@email.com", "telefone": "53999999999" }
 ```
