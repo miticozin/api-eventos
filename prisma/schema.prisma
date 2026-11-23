@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  username      String         @unique
+  password      String
+  categorias    Categoria[]
+  eventos       Evento[]
+  participantes Participante[]
+
+  @@map("users")
+}
+
+model Categoria {
+  id        String   @id @default(cuid())
+  nome      String
+  descricao String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  eventos   Evento[]
+
+  @@map("categorias")
+}
+
+model Evento {
+  id          String      @id @default(cuid())
+  titulo      String
+  descricao   String?
+  local       String
+  data        DateTime
+  vagas       Int
+  categoriaId String
+  userId      String
+  categoria   Categoria   @relation(fields: [categoriaId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
+  inscricoes  Inscricao[]
+
+  @@map("eventos")
+}
+
+model Participante {
+  id         String      @id @default(cuid())
+  nome       String
+  email      String      @unique
+  telefone   String?
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  inscricoes Inscricao[]
+
+  @@map("participantes")
+}
+
+model Inscricao {
+  eventoId       String
+  participanteId String
+  dataInscricao  DateTime     @default(now())
+  status         String       @default("CONFIRMADA")
+  evento         Evento       @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+  participante   Participante @relation(fields: [participanteId], references: [id], onDelete: Cascade)
+
+  @@id([eventoId, participanteId])
+  @@map("inscricoes")
+}
